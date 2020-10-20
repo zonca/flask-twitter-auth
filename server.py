@@ -8,7 +8,11 @@ app.secret_key = os.environ["SECRET_KEY"]
 consumer_key = os.environ["TWITTER_CONSUMER_KEY"]
 consumer_secret = os.environ["TWITTER_CONSUMER_SECRET"]
 callback = 'https://twitter-blocklist-auth.glitch.me/callback'
+signin_with_twitter_button_image = "https://cdn.glitch.com/078e5e4b-c232-486d-b18c-08211207cdf7%2Fsign-in-with-twitter-gray.png.img.fullhd.medium.png?v=1603227771259"
 
+@app.route('/')
+def home():
+  return '<a href="/auth"><img src={} />'
 @app.route('/auth')
 def auth():
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret, callback)
