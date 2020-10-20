@@ -12,7 +12,8 @@ signin_with_twitter_button_image = "https://cdn.glitch.com/078e5e4b-c232-486d-b1
 
 @app.route('/')
 def home():
-  return '<a href="/auth"><img src={} />'
+  return '<h1>Generate access token and secret for twitter_blocklist</h1><a href="/auth"><img src={} alt="Signin with Twitter"/></a>'.format(signin_with_twitter_button_image)
+
 @app.route('/auth')
 def auth():
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret, callback)
