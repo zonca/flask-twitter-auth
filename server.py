@@ -27,7 +27,7 @@ def twitter_callback():
     auth.get_access_token(verifier)
     session['token'] = (auth.access_token, auth.access_token_secret)
 
-    return "<ulACCESS_TOKEN:{}\nACCESS_TOKEN_SECRET:{}".format(auth.access_token, auth.access_token_secret)
+    return "<dl><dt>ACCESS_TOKEN</dt><dd>{}</dd><dt>ACCESS_TOKEN_SECRET</dt><dd>{}</dd></dl>".format(auth.access_token, auth.access_token_secret)
 
 if __name__ == "__main__":
   app.run(debug=False)
