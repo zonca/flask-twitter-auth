@@ -53,7 +53,7 @@ def twitter_callback():
             yield '{},"{}"\n'.format(user.id_str, user.screen_name)
 
     return Response(
-        generate,
+        generate(),
         mimetype="text/csv",
         headers={"Content-Disposition": "attachment;filename=blocks.csv"},
     )
