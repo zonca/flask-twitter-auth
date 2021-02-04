@@ -1,6 +1,7 @@
 import tweepy
+import twitter
 import os
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, Response
 
 app = Flask(__name__)
 app.secret_key = os.environ["SECRET_KEY"]
@@ -36,9 +37,23 @@ def twitter_callback():
     verifier = request.args.get("oauth_verifier")
     auth.get_access_token(verifier)
     session["token"] = (auth.access_token, auth.access_token_secret)
+    api = authenticate(
+        dict(
+            consumer_key=consumer_key,
+            consumer_secret=consumer_secret,
+            access_token_key=auth.access_token,
+            access_token_secret=auth.access_token_secret,
+        )
+    )
 
-    return "<dl><dt>ACCESS_TOKEN</dt><dd>{}</dd><dt>ACCESS_TOKEN_SECRET</dt><dd>{}</dd></dl>".format(
-        auth.access_token, auth.access_token_secret
+    def generate():
+        for user in api.GetBlocks():
+            yield '{},"{}"\n'.format(user.id_str, user.screen_name)
+
+    return Response(
+        generate,
+        mimetype="text/csv",
+        headers={"Content-Disposition": "attachment;filename=blocks.csv"},
     )
 
 
