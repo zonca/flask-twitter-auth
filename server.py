@@ -26,6 +26,8 @@ def auth():
     session["request_token"] = auth.request_token
     return redirect(url)
 
+def authenticate(auth_dict):
+    return twitter.Api(**auth_dict, sleep_on_rate_limit=True)
 
 @app.route("/callback")
 def twitter_callback():
