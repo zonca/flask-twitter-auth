@@ -68,7 +68,7 @@ def twitter_callback():
     )
     user = api.VerifyCredentials()
     return """<h1>twitter_blocklist</h1>
-<p>You are autenticated as {username}</p>
+<p>You are autenticated as <b>{username}</b></p>
 
 <h2>Import blocks</h2>
 <form method="post" action="/import_blocks">
